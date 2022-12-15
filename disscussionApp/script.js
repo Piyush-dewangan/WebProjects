@@ -17,10 +17,16 @@ search.addEventListener("keyup", (event) => {
 function searchQuestion(value) {
   let data = JSON.parse(localStorage.getItem("question"));
   let result = data.filter((element) => {
-    if (element.subject.toLowerCase().includes(value)) {
+    if (
+      element.subject.toLowerCase().includes(value) ||
+      element.question.toLowerCase().includes(value)
+    ) {
       return true;
     }
-    if (element.subject.toUpperCase().includes(value)) {
+    if (
+      element.subject.toUpperCase().includes(value) ||
+      element.question.toUpperCase().includes(value)
+    ) {
       return true;
     }
   });
@@ -90,11 +96,15 @@ questions.forEach(function (question) {
 function postQuestion() {
   let subject = document.getElementById("subject");
   let question = document.getElementById("question");
-
-  if (subject.value < 1 || question.value < 1) {
+  let temp1 = subject.value.trim();
+  let temp2 = question.value.trim();
+  if (temp1 == "" || temp2 == "") {
     alert("Please Enter the valid  Questions ");
     div.innerText = "";
-    displayQuestionAll();
+    let data = JSON.parse(localStorage.getItem("question"));
+    data.forEach((value) => {
+      displayQuestionOnUI(value);
+    });
   } else {
     var questionobj = new Object();
     //   console.log(subject.value, question.value);
@@ -107,14 +117,20 @@ function postQuestion() {
 
     storeIntoStorageQuestion(questionobj);
     storeIntoStorageId(id);
+    div.innerText = "";
+    let data = JSON.parse(localStorage.getItem("question"));
+    data.forEach((value) => {
+      displayQuestionOnUI(value);
+    });
+
     subject.value = "";
     question.value = "";
     console.log(questionobj);
-    location.reload();
   }
 }
 
 function displayQuestionOnResponseUI(value) {
+  console.log(" response question", value);
   response_display_div.innerHTML = "";
   let fragment = document.createElement("div");
   let elementSubject = document.createElement("h1");
@@ -137,13 +153,11 @@ function displayQuestionOnResponseUI(value) {
     question_area_div.style.display = "block";
     response_area_div.style.display = "none";
   });
+
   var oldData = localStorage.getItem("question");
   oldData = JSON.parse(oldData);
   oldData.forEach((element) => {
-    if (
-      (element._id == value._id && value.subject.length > 0) ||
-      value.question.length > 0
-    ) {
+    if (element._id == value._id) {
       fragment.className = "questions-background";
       elementSubject.innerText = value.subject;
       elementQuestion.innerText = value.question;
@@ -160,7 +174,9 @@ function displayQuestionOnResponseUI(value) {
     let responsername = document.getElementById("responsername");
     let comment = document.getElementById("comment");
     var responseobj = new Object();
-    if (responsername.value.length < 1 || comment.value.length < 1) {
+    let temp1 = responsername.value.trim();
+    let temp2 = comment.value.trim();
+    if (temp1 == "" || temp2 == "") {
       alert("plese enter valid details");
       displayQuestionOnResponseUI(value);
     }
