@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/eeb8707309.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>DisscussionApp</title>
+    <style>
+      .colorchanger {
+        background-color: rgb(103, 214, 177);
+      }
+      i {
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+      h1,
+      h2 {
+        color: rgb(139, 139, 131);
+      }
+
+      .questions-background {
+        margin-top: 1rem;
+        padding-left: 1rem;
+        background-color: rgb(212, 212, 192);
+        box-shadow: 2px;
+      }
+      #responsearea {
+        display: none;
+      }
+      div {
+        border-radius: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-fluid bg-info py-2 mx-2" style="border-radius: 0px">
+      <h1 class="text-white">Discussion Portal</h1>
+    </div>
+    <div class="row d-flex flex-row-reverse py-2 px-2 mx-2">
+      <div class="col-12 col-md-7 py-4 my-3" id="responsearea">
+        <h1>Question</h1>
+
+        <div id="responsedisplay"></div>
+        <button type="button" class="btn btn-primary" id="resolve-submit">
+          Resolve
+        </button>
+        <h2>Responses</h2>
+        <div id="responses"></div>
+        <h1>AddResponse</h1>
+        <input
+          type="text"
+          placeholder="Enter Name"
+          class="py-2"
+          required
+          id="responsername"
+        /><br />
+        <textarea
+          name="Question"
+          id="comment"
+          required
+          style="height: 15vh; width: 80%"
+          placeholder="Enter comment"
+        ></textarea>
+        <br />
+        <button type="button" class="btn btn-primary" id="comment-submit">
+          Comment
+        </button>
+      </div>
+      <div class="col-12 col-md-7 py-4" id="questionarea">
+        <h1 class="pt-4">Welcome To The Discussion Portal!</h1>
+        <h3 class="pt-4">Enter A Subject And Question Started</h3>
+        <input
+          class="my-2 mx-2"
+          type="text"
+          placeholder="Subject"
+          class="py-2"
+          required
+          id="subject"
+        /><br />
+        <textarea
+          name="Question"
+          id="question"
+          required
+          class="my-2 mx-2"
+          style="height: 15vh; width: 80%"
+          placeholder="Enter the Question"
+        ></textarea>
+        <br />
+        <button type="submit" class="btn btn-primary mx-2" id="question-submit">
+          Submit
+        </button>
+      </div>
+      <div class="col-12 col-md-5 py-4 bg-light">
+        <div class="container-fluid">
+          <button class="btn btn-primary" id="newquestion">
+            New Question Here
+          </button>
+          <input
+            type="text"
+            id="search"
+            placeholder="Search Question"
+            class="py-2 my-2"
+          /><br />
+          <div id="parent"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
