@@ -52,54 +52,62 @@
         <h1>Question</h1>
 
         <div id="responsedisplay"></div>
-        <button type="button" class="btn btn-primary" id="resolve-submit">
-          Resolve
-        </button>
-        <h2>Responses</h2>
-        <div id="responses"></div>
-        <h1>AddResponse</h1>
-        <input
-          type="text"
-          placeholder="Enter Name"
-          class="py-2"
-          required
-          id="responsername"
-        /><br />
-        <textarea
-          name="Question"
-          id="comment"
-          required
-          style="height: 15vh; width: 80%"
-          placeholder="Enter comment"
-        ></textarea>
-        <br />
-        <button type="button" class="btn btn-primary" id="comment-submit">
-          Comment
-        </button>
+        <form>
+          <button type="button" class="btn btn-primary" id="resolve-submit">
+            Resolve
+          </button>
+          <h2>Responses</h2>
+          <div id="responses"></div>
+          <h1>AddResponse</h1>
+          <input
+            type="text"
+            placeholder="Enter Name"
+            class="py-2"
+            required
+            id="responsername"
+          /><br />
+          <textarea
+            name="Question"
+            id="comment"
+            required
+            style="height: 15vh; width: 80%"
+            placeholder="Enter comment"
+          ></textarea>
+          <br />
+          <button type="button" class="btn btn-primary" id="comment-submit">
+            Comment
+          </button>
+        </form>
       </div>
       <div class="col-12 col-md-7 py-4" id="questionarea">
         <h1 class="pt-4">Welcome To The Discussion Portal!</h1>
         <h3 class="pt-4">Enter A Subject And Question Started</h3>
-        <input
-          class="my-2 mx-2"
-          type="text"
-          placeholder="Subject"
-          class="py-2"
-          required
-          id="subject"
-        /><br />
-        <textarea
-          name="Question"
-          id="question"
-          required
-          class="my-2 mx-2"
-          style="height: 15vh; width: 80%"
-          placeholder="Enter the Question"
-        ></textarea>
-        <br />
-        <button type="submit" class="btn btn-primary mx-2" id="question-submit">
-          Submit
-        </button>
+        <form>
+          <input
+            class="my-2 mx-2"
+            type="text"
+            placeholder="Subject"
+            class="py-2"
+            required
+            id="subject"
+          /><br />
+          <textarea
+            name="Question"
+            id="question"
+            required
+            class="my-2 mx-2"
+            style="height: 15vh; width: 80%"
+            placeholder="Enter the Question"
+          ></textarea>
+          <br />
+          <button
+            type="submit"
+            class="btn btn-primary mx-2"
+            id="question-submit"
+          >
+            Submit
+          </button>
+        </form>
       </div>
       <div class="col-12 col-md-5 py-4 bg-light">
         <div class="container-fluid">

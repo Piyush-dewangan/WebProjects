@@ -42,7 +42,7 @@ function searchQuestion(value) {
 }
 
 newquestion.onclick = () => {
-  location.reload();
+  // location.reload();
 
   question_area_div.style.display = "block";
   response_area_div.style.display = "none";
@@ -90,21 +90,28 @@ questions.forEach(function (question) {
 function postQuestion() {
   let subject = document.getElementById("subject");
   let question = document.getElementById("question");
-  var questionobj = new Object();
 
-  //   console.log(subject.value, question.value);
-  let id = parseInt(localStorage.getItem("id") || "1");
-  questionobj._id = ++id;
-  questionobj.subject = subject.value;
-  questionobj.question = question.value;
-  questionobj.upvote = 0;
-  questionobj.downvote = 0;
-  subject.value = "";
-  question.value = "";
-  storeIntoStorageQuestion(questionobj);
-  storeIntoStorageId(id);
-  console.log(questionobj);
-  location.reload();
+  if (subject.value < 1 || question.value < 1) {
+    alert("Please Enter the valid  Questions ");
+    div.innerText = "";
+    displayQuestionAll();
+  } else {
+    var questionobj = new Object();
+    //   console.log(subject.value, question.value);
+    let id = parseInt(localStorage.getItem("id") || "1");
+    questionobj._id = ++id;
+    questionobj.subject = subject.value;
+    questionobj.question = question.value;
+    questionobj.upvote = 0;
+    questionobj.downvote = 0;
+
+    storeIntoStorageQuestion(questionobj);
+    storeIntoStorageId(id);
+    subject.value = "";
+    question.value = "";
+    console.log(questionobj);
+    location.reload();
+  }
 }
 
 function displayQuestionOnResponseUI(value) {
@@ -122,12 +129,21 @@ function displayQuestionOnResponseUI(value) {
       return element._id != value._id;
     });
     localStorage.setItem("question", JSON.stringify(oldData));
-    location.reload();
+    div.innerText = "";
+    let data = JSON.parse(localStorage.getItem("question"));
+    data.forEach((value) => {
+      displayQuestionOnUI(value);
+    });
+    question_area_div.style.display = "block";
+    response_area_div.style.display = "none";
   });
   var oldData = localStorage.getItem("question");
   oldData = JSON.parse(oldData);
   oldData.forEach((element) => {
-    if (element._id == value._id) {
+    if (
+      (element._id == value._id && value.subject.length > 0) ||
+      value.question.length > 0
+    ) {
       fragment.className = "questions-background";
       elementSubject.innerText = value.subject;
       elementQuestion.innerText = value.question;
@@ -140,21 +156,27 @@ function displayQuestionOnResponseUI(value) {
 
   responsesubmit.onclick = function postResponse() {
     console.log("post response is clicked");
+
     let responsername = document.getElementById("responsername");
     let comment = document.getElementById("comment");
     var responseobj = new Object();
-
+    if (responsername.value.length < 1 || comment.value.length < 1) {
+      alert("plese enter valid details");
+      displayQuestionOnResponseUI(value);
+    }
     //   console.log(subject.value, question.value);
-    responseobj._id = value._id;
-    console.log(value);
-    responseobj.responsername = responsername.value;
-    responseobj.comment = comment.value;
-    responsername.value = "";
-    comment.value = "";
+    else {
+      responseobj._id = value._id;
+      console.log(value);
+      responseobj.responsername = responsername.value;
+      responseobj.comment = comment.value;
+      responsername.value = "";
+      comment.value = "";
 
-    // console.log(responseobj);
-    storeIntoStorageResponses(responseobj);
-    displayResponseOnUI(value);
+      // console.log(responseobj);
+      storeIntoStorageResponses(responseobj);
+      displayResponseOnUI(value);
+    }
   };
 }
 function displayResponseOnUI(value) {
