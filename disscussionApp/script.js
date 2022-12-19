@@ -18,14 +18,10 @@ function searchQuestion(value) {
   let data = JSON.parse(localStorage.getItem("question"));
   let result = data.filter((element) => {
     if (
-      element.subject.toLowerCase().includes(value) ||
-      element.question.toLowerCase().includes(value)
-    ) {
-      return true;
-    }
-    if (
-      element.subject.toUpperCase().includes(value) ||
-      element.question.toUpperCase().includes(value)
+      element.subject.includes(value.toLowerCase()) ||
+      element.question.includes(value.toLowerCase()) ||
+      element.subject.includes(value.toUpperCase()) ||
+      element.question.includes(value.toUpperCase())
     ) {
       return true;
     }
@@ -41,14 +37,14 @@ function searchQuestion(value) {
     div.innerText = "";
     error.subject = "No Match Found :)";
     error.question = "Sorry ! there seems no matching result found";
-    error.upvote = 0;
-    error.downvote = 0;
+    error.upvote = "";
+    error.downvote = "";
     displayQuestionOnUI(error);
   }
 }
 
 newquestion.onclick = () => {
-  // location.reload();
+  location.reload();
 
   question_area_div.style.display = "block";
   response_area_div.style.display = "none";
@@ -238,45 +234,46 @@ function displayQuestionOnUI(value) {
   fragment.className = "questions-background py-2";
   elementSubject.innerText = value.subject;
   elementQuestion.innerText = value.question;
-
-  upvote.addEventListener("click", () => {
-    // console.log(count);
-    value.upvote = value.upvote + 1;
-    updateVote(value);
-    div.innerText = "";
-    displayQuestionAll();
-  });
-  downvote.addEventListener("click", () => {
-    // console.log(count);
-    value.downvote = value.downvote - 1;
-    updateDownvote(value);
-    div.innerText = "";
-    displayQuestionAll();
-  });
-  function updateDownvote(value) {
-    let oldData = JSON.parse(localStorage.getItem("question"));
-    oldData.forEach((element) => {
-      if (element._id == value._id) {
-        element.downvote = value.downvote;
-      }
+  if (value.subject != "No Match Found :)") {
+    upvote.addEventListener("click", () => {
+      // console.log(count);
+      value.upvote = value.upvote + 1;
+      updateVote(value);
+      div.innerText = "";
+      displayQuestionAll();
     });
-    localStorage.setItem("question", JSON.stringify(oldData));
-  }
-  function updateVote(value) {
-    let oldData = JSON.parse(localStorage.getItem("question"));
-    oldData.forEach((element) => {
-      if (element._id == value._id) {
-        element.upvote = value.upvote;
-      }
+    downvote.addEventListener("click", () => {
+      // console.log(count);
+      value.downvote = value.downvote - 1;
+      updateDownvote(value);
+      div.innerText = "";
+      displayQuestionAll();
     });
-    localStorage.setItem("question", JSON.stringify(oldData));
-  }
+    function updateDownvote(value) {
+      let oldData = JSON.parse(localStorage.getItem("question"));
+      oldData.forEach((element) => {
+        if (element._id == value._id) {
+          element.downvote = value.downvote;
+        }
+      });
+      localStorage.setItem("question", JSON.stringify(oldData));
+    }
+    function updateVote(value) {
+      let oldData = JSON.parse(localStorage.getItem("question"));
+      oldData.forEach((element) => {
+        if (element._id == value._id) {
+          element.upvote = value.upvote;
+        }
+      });
+      localStorage.setItem("question", JSON.stringify(oldData));
+    }
 
-  fragment.addEventListener("click", () => {
-    question_area_div.style.display = "none";
-    response_area_div.style.display = "block";
-    displayQuestionOnResponseUI(value);
-  });
+    fragment.addEventListener("click", () => {
+      question_area_div.style.display = "none";
+      response_area_div.style.display = "block";
+      displayQuestionOnResponseUI(value);
+    });
+  }
   console.log(upvote, downvote);
   fragment.appendChild(elementSubject);
   fragment.appendChild(elementQuestion);
