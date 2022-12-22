@@ -16,7 +16,7 @@ function readData() {
 
   xhr.send(JSON.stringify(data));
   xhr.onload = () => {
-    console.log(JSON.parse(xhr.response));
+    // console.log(JSON.parse(xhr.response));
     response = JSON.parse(xhr.response);
     if(!response.codeId){
       alert("code cannot be null")
@@ -36,7 +36,7 @@ function readData() {
     );
       xhrg.setRequestHeader("Content-Type", "application/json");
 
-      console.log(codeId);
+      // console.log(codeId);
     
    xhrg.onload = () => {
       // console.log(JSON.parse(xhrg.response))
