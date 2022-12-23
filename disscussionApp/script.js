@@ -110,6 +110,7 @@ function postQuestion() {
     questionobj.question = question.value;
     questionobj.upvote = 0;
     questionobj.downvote = 0;
+    questionobj.date = new Date().toString();
 
     storeIntoStorageQuestion(questionobj);
     storeIntoStorageId(id);
@@ -224,7 +225,12 @@ function displayQuestionOnUI(value) {
   let elementQuestion = document.createElement("p");
   let upvote = document.createElement("div");
   let downvote = document.createElement("div");
+  let date = document.createElement("div");
+  date.className = "d-inline";
 
+  let dateDiff = dateDiffer(value.date);
+
+  date.innerHTML = `<h4>${dateDiff}</h4>`;
   upvote.innerHTML =
     '<i class="fa-solid fa-arrow-up ">' + value.upvote + "</i>";
   downvote.innerHTML =
@@ -279,6 +285,7 @@ function displayQuestionOnUI(value) {
   fragment.appendChild(elementQuestion);
   fragment.appendChild(upvote);
   fragment.appendChild(downvote);
+  fragment.appendChild(date);
   div.appendChild(fragment);
 }
 function storeIntoStorageQuestion(object) {
@@ -290,6 +297,33 @@ function storeIntoStorageQuestion(object) {
     oldData = [object];
   }
   localStorage.setItem("question", JSON.stringify(oldData));
+}
+function dateDiffer(date) {
+  // 2022-12-23T11:19:43.206Z
+  // Fri Dec 23 2022 17:53:47 GMT+0530 (India Standard Time)
+  let newDate = new Date();
+  let newminute = newDate.getMinutes();
+  let day = parseInt(date[8] + date[9]);
+  let hours = parseInt(date[16] + date[17]);
+  let minute = parseInt(date[19] + date[20]);
+  let newday = parseInt(newDate.getDate());
+  let newhours = parseInt(newDate.getHours());
+
+  // console.log(day);
+  // console.log("date is here",newDate.getDay(),date.toDate().getDay());
+  console.log(newDate.getDate());
+  if (newday - day > 0) {
+    return `created at ${newday - day} days ago`;
+  } else if (newhours - hours > 0 && newminute > minute) {
+    console.log(newhours, hours, "sdfds");
+    return `created at ${newhours - hours}  hours ago`;
+  } else if (newminute - minute > 0 || newhours > hours) {
+    if (newhours > hours)
+      return `created at ${newminute + 60 - minute} minutes ago`;
+    return `created at ${newminute - minute} minutes ago`;
+  } else {
+    return `created at few seconds ago`;
+  }
 }
 function storeIntoStorageResponses(object) {
   let oldData = localStorage.getItem("responses");

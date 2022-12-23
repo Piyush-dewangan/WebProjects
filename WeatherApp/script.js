@@ -55,13 +55,18 @@ function displayCityTemp(data, countryname, cityname) {
   fragment.style.width = "12rem";
   fragment.style.height = "15rem";
   console.log(data.IsDayTime);
-  if (data.IsDayTime) {
-    timeLogo.innerHTML =
-      '<i class="fa-solid fa-sun " style="font-size:5rem"></i>';
-  } else {
-    timeLogo.innerHTML =
-      ' <i class="fa-solid fa-moon" style="font-size:5rem"></i>';
+  // <img src="" alt="" />
+  if (data.WeatherIcon < 10) {
+    data.WeatherIcon = "0" + data.WeatherIcon;
   }
+  timeLogo.innerHTML = `<img src="https://developer.accuweather.com/sites/default/files/${data.WeatherIcon}-s.png"/>`;
+  // if (data.IsDayTime) {
+  //   timeLogo.innerHTML =
+  //     '<i class="fa-solid fa-sun " style="font-size:5rem"></i>';
+  // } else {
+  //   timeLogo.innerHTML =
+  //     ' <i class="fa-solid fa-moon" style="font-size:5rem"></i>';
+  // }
   console.log(timeLogo);
   fragment.appendChild(city);
   fragment.appendChild(country);
