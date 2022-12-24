@@ -12,7 +12,7 @@ search.addEventListener("keyup", (event) => {
   var value = event.target.value;
 
   searchQuestion(value);
-  location;
+  // location;
 });
 function searchQuestion(value) {
   let data = JSON.parse(localStorage.getItem("question"));
@@ -32,14 +32,17 @@ function searchQuestion(value) {
     result.forEach((value) => {
       displayQuestionOnUI(value);
     });
+    questionstemp = result;
+    clearInterval(disp);
   } else {
+  
     let error = new Object();
     div.innerText = "";
     error.subject = "No Match Found :)";
     error.question = "Sorry ! there seems no matching result found";
     error.upvote = "";
     error.downvote = "";
-    displayQuestionOnUI(error);
+    displayQuestionOnUI(error);  clearInterval(disp);
   }
 }
 
@@ -53,13 +56,20 @@ newquestion.onclick = () => {
 submit.onclick = postQuestion;
 
 var questionstemp = readQuestionFromStorage();
-var questions = questionstemp.sort(function (a, b) {
-  return -a.upvote - -b.upvote;
-});
-
+var temppp = 1;
+displayQuestionAll();
+const disp = function displayQuestionAll() {
+  div.innerHTML = "";
+  console.log(temppp++);
+  var questions = questionstemp.sort(function (a, b) {
+    return -a.upvote - -b.upvote;
+  });
+  questions.forEach(function (question) {
+    displayQuestionOnUI(question);
+  });
+};
 function displayQuestionAll() {
-  var questions = readQuestionFromStorage();
-
+  div.innerHTML = "";
   var questions = questionstemp.sort(function (a, b) {
     return -a.upvote - -b.upvote;
   });
@@ -67,6 +77,7 @@ function displayQuestionAll() {
     displayQuestionOnUI(question);
   });
 }
+setInterval(disp, 1000);
 function readResponseFromStorage() {
   var ResponseString = localStorage.getItem("responses");
 
@@ -97,10 +108,8 @@ function postQuestion() {
   if (temp1 == "" || temp2 == "") {
     alert("Please Enter the valid  Questions ");
     div.innerText = "";
-    let data = JSON.parse(localStorage.getItem("question"));
-    data.forEach((value) => {
-      displayQuestionOnUI(value);
-    });
+    questionstemp = JSON.parse(localStorage.getItem("question"));
+    displayQuestionAll();
   } else {
     var questionobj = new Object();
     //   console.log(subject.value, question.value);
@@ -115,19 +124,17 @@ function postQuestion() {
     storeIntoStorageQuestion(questionobj);
     storeIntoStorageId(id);
     div.innerText = "";
-    let data = JSON.parse(localStorage.getItem("question"));
-    data.forEach((value) => {
-      displayQuestionOnUI(value);
-    });
+    questionstemp = JSON.parse(localStorage.getItem("question"));
+    displayQuestionAll();
 
     subject.value = "";
     question.value = "";
-    console.log(questionobj);
+    // console.log(questionobj);
   }
 }
 
 function displayQuestionOnResponseUI(value) {
-  console.log(" response question", value);
+  // console.log(" response question", value);
   response_display_div.innerHTML = "";
   let fragment = document.createElement("div");
   let elementSubject = document.createElement("h1");
@@ -143,10 +150,8 @@ function displayQuestionOnResponseUI(value) {
     });
     localStorage.setItem("question", JSON.stringify(oldData));
     div.innerText = "";
-    let data = JSON.parse(localStorage.getItem("question"));
-    data.forEach((value) => {
-      displayQuestionOnUI(value);
-    });
+    questionstemp = JSON.parse(localStorage.getItem("question"));
+    displayQuestionAll();
     question_area_div.style.display = "block";
     response_area_div.style.display = "none";
   });
@@ -166,7 +171,7 @@ function displayQuestionOnResponseUI(value) {
   });
 
   responsesubmit.onclick = function postResponse() {
-    console.log("post response is clicked");
+    // console.log("post response is clicked");
 
     let responsername = document.getElementById("responsername");
     let comment = document.getElementById("comment");
@@ -180,7 +185,7 @@ function displayQuestionOnResponseUI(value) {
     //   console.log(subject.value, question.value);
     else {
       responseobj._id = value._id;
-      console.log(value);
+      // console.log(value);
       responseobj.responsername = responsername.value;
       responseobj.comment = comment.value;
       responsername.value = "";
@@ -203,7 +208,7 @@ function displayResponseOnUI(value) {
       let fragment = document.createElement("div");
       let elementSubject = document.createElement("h1");
       let elementQuestion = document.createElement("p");
-      console.log(element.responsername);
+      // console.log(element.responsername);
       fragment.className = "questions-background";
       elementSubject.innerText = element.responsername;
       elementQuestion.innerText = element.comment;
@@ -214,7 +219,7 @@ function displayResponseOnUI(value) {
 
       //   console.log("child appended");
 
-      console.log(responses_div);
+      // console.log(responses_div);
     }
   });
 }
@@ -245,15 +250,11 @@ function displayQuestionOnUI(value) {
       // console.log(count);
       value.upvote = value.upvote + 1;
       updateVote(value);
-      div.innerText = "";
-      displayQuestionAll();
     });
     downvote.addEventListener("click", () => {
       // console.log(count);
       value.downvote = value.downvote - 1;
       updateDownvote(value);
-      div.innerText = "";
-      displayQuestionAll();
     });
     function updateDownvote(value) {
       let oldData = JSON.parse(localStorage.getItem("question"));
@@ -262,6 +263,7 @@ function displayQuestionOnUI(value) {
           element.downvote = value.downvote;
         }
       });
+      questionstemp = data;
       localStorage.setItem("question", JSON.stringify(oldData));
     }
     function updateVote(value) {
@@ -271,6 +273,7 @@ function displayQuestionOnUI(value) {
           element.upvote = value.upvote;
         }
       });
+      questionstemp = oldData;
       localStorage.setItem("question", JSON.stringify(oldData));
     }
 
@@ -280,7 +283,7 @@ function displayQuestionOnUI(value) {
       displayQuestionOnResponseUI(value);
     });
   }
-  console.log(upvote, downvote);
+  // console.log(upvote, downvote);
   fragment.appendChild(elementSubject);
   fragment.appendChild(elementQuestion);
   fragment.appendChild(upvote);
@@ -303,27 +306,47 @@ function dateDiffer(date) {
   // Fri Dec 23 2022 17:53:47 GMT+0530 (India Standard Time)
   let newDate = new Date();
   let newminute = newDate.getMinutes();
+  let seconds = parseInt(date[22] + date[23]);
   let day = parseInt(date[8] + date[9]);
   let hours = parseInt(date[16] + date[17]);
   let minute = parseInt(date[19] + date[20]);
   let newday = parseInt(newDate.getDate());
   let newhours = parseInt(newDate.getHours());
+  let newseconds = parseInt(newDate.getSeconds());
 
   // console.log(day);
   // console.log("date is here",newDate.getDay(),date.toDate().getDay());
-  console.log(newDate.getDate());
-  if (newday - day > 0) {
-    return `created at ${newday - day} days ago`;
-  } else if (newhours - hours > 0 && newminute > minute) {
-    console.log(newhours, hours, "sdfds");
-    return `created at ${newhours - hours}  hours ago`;
-  } else if (newminute - minute > 0 || newhours > hours) {
-    if (newhours > hours)
-      return `created at ${newminute + 60 - minute} minutes ago`;
+  // console.log(newDate.getDate());
+  if (
+    seconds < newseconds &&
+    minute == newminute &&
+    hours == newhours &&
+    day == newday
+  ) {
+    return `created a few  seconds ago`;
+  } else if (minute < newminute && hours == newhours && day == newday) {
     return `created at ${newminute - minute} minutes ago`;
+  } else if (hours < newhours && day == newday) {
+    return `created at ${newhours - hours}  hours ago`;
+  } else if (day == newday) {
+    return `created at ${newday - day} days ago`;
   } else {
-    return `created at few seconds ago`;
+    console.log("some error at time");
   }
+  // if (newday - day > 0) {
+  //   return `created at ${newday - day} days ago`;
+  // } else if (newhours - hours > 0 && newminute > minute) {
+  //   // console.log(newhours, hours, "sdfds");
+  //   return `created at ${newhours - hours}  hours ago`;
+  // } else if (newminute - minute > 0 || newhours > hours) {
+  //   if (newhours > hours)
+  //     return `created at ${newminute + 60 - minute} minutes ago`;
+  //   return `created at ${newminute - minute} minutes ago`;
+  // } else {
+  //   if (newminute > minute)
+  //     return `created at ${newseconds + 60 - seconds} minutes ago`;
+  //   return `created at few seconds ago`;
+  // }
 }
 function storeIntoStorageResponses(object) {
   let oldData = localStorage.getItem("responses");

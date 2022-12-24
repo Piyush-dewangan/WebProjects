@@ -5,6 +5,7 @@ let displayarea = document.getElementById("displayarea");
 cityInput.addEventListener("keyup", (event) => {
   if (event.code === "Enter" && event.target.value.length > 0) {
     searchCity(event.target.value);
+    event.target.value = "";
   }
 });
 
