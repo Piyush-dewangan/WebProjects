@@ -4,7 +4,10 @@ const fs = require("fs");
 const session = require("express-session");
 const port = 3000;
 var temp;
+const ejs = require("ejs");
 app.use(express.static("public"));
+app.set("view-engine", "ejs");
+app.set("views", __dirname + "public/home/indes.ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
@@ -30,7 +33,7 @@ app
   .route("/login")
   .get((req, res) => {
     if (req.session.is_logged_in) {
-      res.redirect("/");
+      res.redirect(`/?name=${req.body.username}`);
     } else {
       res.sendFile(__dirname + "/public/login/index.html");
     }

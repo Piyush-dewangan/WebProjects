@@ -16,7 +16,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Home</title>
+    <title>Login</title>
     <style>
       #maincontainer {
         display: flex;
@@ -33,35 +33,40 @@
       }
     </style>
   </head>
-  <script>
-    fetch("/getUsername")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        displayName(data.name);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    function displayName(value) {
-      let display_area = document.getElementById("display_area");
-      display_area.innerText = "";
-      display_area.innerText = `Your Logged In  ${value}   and You're in Home now`;
-    }
-  </script>
   <body>
+    <%- include('header', {name: name}); %>
     <div class=" " id="maincontainer">
       <div
         class="d-flex align-items-center flex-column justify-contain-center rounded shadow"
         id="formdiv"
-        style="padding: 5rem"
+        style="padding-top: 5rem"
       >
-        <h3 id="display_area"></h3>
-        <button class="btn btn-primary">
-          <a href="/logout" class="text-white">Log Out</a>
-        </button>
+        <form action="/login" method="post">
+          <div class="form-group">
+            <label for="user">Username </label>
+            <input
+              type="text"
+              name="username"
+              class="form-control w-80"
+              id="user"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pass">Password </label>
+            <input
+              type="password"
+              name="password"
+              class="form-control w-80"
+              id="pass"
+            />
+          </div>
+          <div class="form-group"></div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <br />
+        <p>Don't Have An Account</p>
+        <a class="text-left" href="/signup">Sign up</a>
       </div>
     </div>
   </body>
