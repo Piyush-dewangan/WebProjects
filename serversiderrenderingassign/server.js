@@ -2,13 +2,16 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const session = require("express-session");
-
+const bodyParser = require("body-parser");
 const port = 3000;
-const ejs = require("ejs");
-app.use(express.static("public"));
 app.set("view-engine", "ejs");
-// app.set("views", __dirname + "public/home/indes.ejs");
+// var expressLayouts = require("express-ejs-layouts");
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+// app.use(expressLayouts);
+// const { body, validationResult } = require("express-validator");
+// app.set("views", __dirname + "public/home/indes.ejs");
+
 app.use(
   session({
     secret: "secretkey",
@@ -37,15 +40,11 @@ app.get("/getUsername", (req, res) => {
 app
   .route("/login")
   .get((req, res) => {
-    if (req.session.is_logged_in) {
-      res.redirect(`/?name=${req.body.name}`);
-    } else {
-      const name = null;
-      res.render("login.ejs", { name });
-    }
+    const name = null;
+    res.render("login.ejs", { name });
   })
   .post((req, res) => {
-    req.session.name = req.body.name;
+    // req.session.name = req.body.name;
     let temp;
     req.session.is_logged_in = false;
     let one = 0;
@@ -54,7 +53,8 @@ app
 
       if (!data) {
         user = [];
-        res.redirect(`/?name=${req.body.name}`);
+        const name = null;
+        res.render("login2.ejs", { name });
       } else {
         user = JSON.parse(data);
       }

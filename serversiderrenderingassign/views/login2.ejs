@@ -35,12 +35,14 @@
   </head>
   <body>
     <%- include('header', {name: name}); %>
+
     <div class=" " id="maincontainer">
       <div
         class="d-flex align-items-center flex-column justify-contain-center rounded shadow"
         id="formdiv"
         style="padding-top: 5rem"
       >
+        <p class="text-danger">Wrong Username or Password</p>
         <form action="/login" method="post">
           <div class="form-group">
             <label for="user">Username </label>
