@@ -33,20 +33,17 @@
       }
     </style>
   </head>
-  <script>
- 
-  </script>
+  <script></script>
 
   <body>
-    <%- include('partials/header', {name: name}); %>
-    <div id="loadmore" class="row">
-      <% products.forEach((numeber,index,product)=>{ if(index<size){%>
-      <div class="col-sm-12 col-md-5 col-lg-3">
-        <%-include('partials/cart', {data:product[index].name}); %>
-      </div>
+    <%- include('partials/header', {name: null}); %>
+    <h1>forgot</h1>
+    <form action="/forgot" method="post">
+      <div class="d-flex flex-column">
+        <input type="text" name="email" placeholder="email" />
 
-      <% }}) %>
-      <a href="/fetchAll"  ">Show more</a>
-    </div>
+        <button type="submit">submit</button>
+      </div>
+    </form>
   </body>
 </html>

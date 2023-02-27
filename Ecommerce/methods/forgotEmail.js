@@ -18,7 +18,7 @@ module.exports = function (email, name, token, callback) {
         ],
         Subject: "Welcome To Our ECommerce",
         TextPart: "Greetings from ClothMart!",
-        HTMLPart: `<h3>Dear  ${name}, welcome to <a href="http://localhost:3000/verifyEmail/${token}">ClothMart</a>!</h3><br />May the delivery force be with you!`,
+        HTMLPart: `<h3>Dear  ${name}, welcome to <a href="http://localhost:3000/resetPass/${token}">reset link</a>!</h3><br />This is your resel link!`,
       },
     ],
   });
