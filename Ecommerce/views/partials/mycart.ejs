@@ -11,7 +11,12 @@
   <div class="card-body">
     <h5 class="card-title"><%=data.name %></h5>
 
+    <a class="btn btn-primary" href="/addcart/<%=data.id%>" >+  </a>
+    <span><%=cart[data.id].quantity %> </span>
+    <a  class="btn btn-primary" href="/minuscart/<%=data.id%>">-</a>
+    <br>
+    <a href="/deletecart/<%=data.id%>" class="btn btn-primary">Delete product </a>
     <a href="/product/<%=data.id%>" class="btn btn-primary">View Details </a>
-    <a href="/addcart/<%=data.id%>" class="btn btn-primary">Add to Cart </a>
+   
   </div>
 </div>

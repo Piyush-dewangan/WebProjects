@@ -26,11 +26,20 @@ app.use(
 // Password changing and forgetting options api handling
 app.get("/changepass", isAuth, (req, res) => {
   let name = req.session.name;
-  res.render("changepass.ejs", { name });
+  res.render("changepass.ejs", { name, err: null });
 });
 app.post("/changepass/changed", isAuth, (req, res) => {
   let name = req.session.name;
-  let pass = req.body.password;
+  let pass = req.body.password1;
+  let pass1 = req.body.password1;
+  let pass2 = req.body.password2;
+
+  if (pass1 != pass2) {
+    console.log(pass1, pass2);
+    let err = "Both are not same";
+    res.render("changepass.ejs", { name, err });
+    return;
+  }
 
   fs.readFile(__dirname + "/user.txt", "utf-8", (err, data) => {
     let users = JSON.parse(data);
@@ -101,7 +110,7 @@ app.get("/home", (req, res) => {
 app.get("/", isAuth, (req, res) => {
   let name = req.session.name;
   var products;
-  console.log(req.session);
+
   fs.readFile(__dirname + "/product.txt", "utf-8", (err, data) => {
     products = JSON.parse(data);
     let size = 5;
@@ -110,13 +119,14 @@ app.get("/", isAuth, (req, res) => {
   });
 });
 
-app.get("/fetchAll", isAuth, (req, res) => {
+app.get("/fetchAll/:size", (req, res) => {
   let name = req.session.name;
   var products;
+  const size = req.params.size;
 
   fs.readFile(__dirname + "/product.txt", "utf-8", (err, data) => {
     products = JSON.parse(data);
-    let size = 24;
+    console.log(size);
     res.render("home.ejs", { name, products, size });
   });
 });
@@ -185,7 +195,7 @@ app
       } else {
         req.session.is_logged_in = false;
       }
-      // console.log(req.session.is_logged_in, "sdfds");
+
       if (one == 0) {
         let name = null;
         let error = "Wrong Password Or Username";
@@ -271,6 +281,99 @@ app.route("/logout").get((req, res) => {
   req.session.destroy();
   res.redirect("/");
 });
+//  cart items redirect pages handling the cart items
+app.get("/product/:id", (req, res) => {
+  const { id } = req.params;
+  fs.readFile(__dirname + "/product.txt", "utf-8", (err, data) => {
+    let products = JSON.parse(data);
+
+    products.forEach((product) => {
+      if (product.id == id) {
+        console.log(id);
+        res.render("item.ejs", { product: product, name: req.session.name });
+        return;
+      }
+    });
+  });
+});
+app.get("/addcart/:id", isAuth, (req, res) => {
+  const { id } = req.params;
+  fs.readFile(__dirname + "/cart.txt", "utf-8", (err, data) => {
+    let cart;
+    cart = JSON.parse(data);
+    let { username } = req.session.user;
+    if (cart[username]) {
+      if (cart[username][id]) {
+        cart[username][id].quantity++;
+      } else {
+        cart[username][id] = {
+          quantity: 1,
+        };
+      }
+    } else {
+      cart[username] = {};
+      cart[username][id] = id;
+      cart[username][id] = {
+        quantity: 1,
+      };
+    }
+    fs.writeFile(__dirname + "/cart.txt", JSON.stringify(cart), (err) => {
+      res.redirect("/cart");
+    });
+  });
+});
+app.get("/minuscart/:id", isAuth, (req, res) => {
+  const { id } = req.params;
+  fs.readFile(__dirname + "/cart.txt", "utf-8", (err, data) => {
+    let cart;
+    cart = JSON.parse(data);
+    let { username } = req.session.user;
+    if (cart[username]) {
+      cart[username][id].quantity--;
+    }
+    fs.writeFile(__dirname + "/cart.txt", JSON.stringify(cart), (err) => {
+      res.redirect("/cart");
+    });
+  });
+});
+app.get("/deletecart/:id", isAuth, (req, res) => {
+  const { id } = req.params;
+  fs.readFile(__dirname + "/cart.txt", "utf-8", (err, data) => {
+    let cart;
+    cart = JSON.parse(data);
+    let { username } = req.session.user;
+    if (cart[username]) {
+      if (cart[username][id]) {
+        delete cart[username][id];
+      }
+    }
+    fs.writeFile(__dirname + "/cart.txt", JSON.stringify(cart), (err) => {
+      res.redirect("/cart");
+    });
+  });
+});
+app.get("/cart", isAuth, (req, res) => {
+  fs.readFile(__dirname + "/cart.txt", "utf-8", (err, data) => {
+    let cart;
+    cart = JSON.parse(data);
+    let { username } = req.session.user;
+
+    if (cart[username]) {
+      let products;
+      fs.readFile(__dirname + "/product.txt", "utf-8", (err, data) => {
+        products = JSON.parse(data);
+
+        res.render("mycart.ejs", {
+          products: products,
+          cart: cart[username],
+          name: req.session.name,
+        });
+      });
+    } else {
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`https://localhost:${port}`);
 });

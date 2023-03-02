@@ -32,21 +32,70 @@
         background-color: aliceblue;
       }
     </style>
-  </head>
-  <script>
- 
-  </script>
 
+  </head>
+
+<script>
+  function popup(id, name, desc, price,scr) {
+  id = parseInt(id);
+  price = parseInt(price);
+  console.log(id, price, name, desc);
+    var popup = document.getElementById("popup");
+    var popupouter = document.createElement("div");
+    var popupinner = document.createElement("div");
+    var cross = document.createElement("button");
+    popup.innerText=""
+    popupouter.style.position="absolute"
+    popupouter.style.top="12%"
+    popupouter.style.right="1rem"
+    popupouter.style.bottom="10%"
+ cross.className="btn btn-primary"
+ cross.innerText="X"
+    console.log(popup)
+    cross.addEventListener("click",()=>{
+      popup.innerHTML=""
+    })
+    popupinner.innerHTML = ` 
+      <div class="card" style="width: 25rem" ">
+        <img
+          class="card-img-top img-fluid"
+          src=${scr}
+          alt="Card image cap"
+           
+        />
+      
+        <div class="card-body">
+          <h5 class="card-title"> ${name}</h5>
+          <h6 class="card-title"> ${desc}</h6>
+          <h5 class="card-title"> ${price}</h5>
+      
+        
+        </div>
+          
+       </div>`;
+    popupouter.appendChild(cross);
+    popupouter.appendChild(popupinner);
+    popup.appendChild(popupouter);
+}
+
+</script>
   <body>
     <%- include('partials/header', {name: name}); %>
+  <br>
+  
+  <br>
+
     <div id="loadmore" class="row">
-      <% products.forEach((numeber,index,product)=>{ if(index<size){%>
+      <% products.forEach((numeber,index,product)=>{ if(index<size&&index<products.length){%>
       <div class="col-sm-12 col-md-5 col-lg-3">
-        <%-include('partials/cart', {data:product[index].name}); %>
+        <%-include('partials/cart', {data:product[index]}); %>
       </div>
 
       <% }}) %>
-      <a href="/fetchAll"  ">Show more</a>
+      <% size=parseInt(size)+5 %>
+      <a href="/fetchAll/<%=size%>">Show more</a>
     </div>
+    
+    <div id="popup"></div>
   </body>
 </html>

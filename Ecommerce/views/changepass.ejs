@@ -37,13 +37,47 @@
 
   <body>
     <%- include('partials/header', {name: name}); %>
-    <h1>change Password</h1>
-    <form action="/changepass/changed" method="post">
-      <div class="d-flex flex-column">
-        <input type="text" name="password" placeholder="new password" />
-        <input type="text" placeholder="confirm passwords" />
-        <button type="submit">submit</button>
-      </div>
-    </form>
+    <br />
+    <br />
+    <h1>Change Password</h1>
+    <ul class="text-decoraction-none">
+      <li style="color: red">
+        At least 8 characters long but 10 or more is better.
+      </li>
+      <li style="color: red">
+        A combination of uppercase letters, lowercase letters, numbers, and
+        symbols
+      </li>
+      <li style="color: red">
+        Not a word that can be found in a dictionary or the name of a person,
+        character, product, or organization
+      </li>
+      <li style="color: red">
+        Significantly different from your previous passwords.
+      </li>
+    </ul>
+    <div class="d-flex justify-content-center">
+      <form action="/changepass/changed" method="post">
+        <div
+          class="d-flex flex-column align-items-center py-2 my-3 justify-contain-center"
+          style="width: 40"
+        >
+          <div>
+            <input type="text" name="password1" placeholder="new password" />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="password2"
+              placeholder="confirm passwords"
+            />
+          </div>
+        </div>
+        <% if(err){ %>
+        <p style="color: red">Mismatch of password</p>
+        <% } %>
+        <button type="submit" class="btn btn-primary btn-sm">submit</button>
+      </form>
+    </div>
   </body>
 </html>
