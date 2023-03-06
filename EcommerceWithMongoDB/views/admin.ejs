@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/eeb8707309.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>Home</title>
+  </head>
+  <style>
+    .float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 3rem;
+      right: 4rem;
+      background-color: rgb(78, 112, 185);
+      color: #fff;
+      border-radius: 50px;
+      text-align: center;
+      box-shadow: 2px 2px 3px #999;
+      z-index: 1;
+    }
+  </style>
+  <body>
+    <%- include('partials/header', {name: name ,isAdmin:isAdmin}); %>
+    <br />
+    <br />
+    <div id="popup" style="position: sticky; top: 4rem; z-index: 1"></div>
+
+    <button class="btn btn-primary btn-lg float" onclick="addProductPopUp()">
+      +
+    </button>
+
+    <div class="d-flex row" id="trans" style="z-index: 0">
+      <% products.forEach((value)=>{ %>
+      <div class="col-sm-12 col-md-5 col-lg-3">
+        <%-include('partials/addproduct', {data:value }); %>
+      </div>
+
+      <% }) %>
+    </div>
+
+    <script>
+      function addProductPopUp() {
+        document.getElementById("trans").style.opacity = "0.2";
+        var popup = document.getElementById("popup");
+        var popupouter = document.createElement("div");
+        var popupouter1 = document.createElement("div");
+        var popupinner = document.createElement("div");
+
+        popupouter.style.position = "absolute";
+        popupouter.style.top = "10%";
+        popupouter.style.right = "20%";
+        popupouter.style.bottom = "10%";
+
+        console.log(popup);
+        popupinner.innerHTML = `
+                    <div class="card" style="width: 27rem" ">
+                   
+ <form method="post" action="/product/addproduct" enctype="multipart/form-data">
+                      <div class="card-body" id="uppop">
+                       
+                        <h5 class="card-title "> Name:  <input minlength="1" class="name" name="name" placeholder="Product name" />  </h5>
+                        <h6 class="card-title "> Description :<input minlength="1" class="desc"  name="desc"placeholder="product description" />  </h6>
+                        <h5 class="card-title "> Price: <input class="price" name="price"  type="number"placeholder="product price" />  </h5>
+                        <h5 class="card-title "> Quantity:  <input  class="quantity" type="number"
+                         name="quantity" placeholder="product quantity" />  </h5>
+                        <input type="file" name="file" id="file">
+                          <button class="btn btn-primary "  type="submit" > Add Product</button>
+                          </form>
+
+
+                      </div>
+
+                     </div>`;
+        popupouter1.appendChild(popupinner);
+        popupouter.appendChild(popupouter1);
+        popup.appendChild(popupouter);
+      }
+
+      function updateDetails(id, name1, desc1, price1, quantity1) {
+        let thediv = document.getElementById(`uppop`);
+        // console.log(thediv);
+        let name = thediv.querySelector(".name").value;
+        let desc = thediv.querySelector(".desc").value;
+        let price = thediv.querySelector(".price").value;
+        let quantity = thediv.querySelector(".quantity").value;
+        if (name.length === 0) {
+          name = name1;
+        }
+        if (desc.length === 0) {
+          desc = desc1;
+        }
+        if (price.length === 0) {
+          price = price1;
+        }
+        if (quantity.length === 0) {
+          quantity = quantity1;
+        }
+
+        fetch(`product/updatedetails/${id}`, {
+          method: "POST", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+            name: name,
+            description: desc,
+            price: price,
+            quantity: quantity,
+          }),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            let thediv = document.getElementById(`${id}`);
+            thediv.querySelector(".name").innerText = `${name}`;
+            thediv.querySelector(".desc").innerText = `${desc
+              .toString()
+              .substr(0, 20)}`;
+            thediv.querySelector(".price").innerText = `${price}`;
+            thediv.querySelector(".quantity").innerText = `${quantity}`;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
+      function popup(id, name, desc, price, scr, quantity) {
+        document.getElementById("trans").style.opacity = "0.2";
+        id = parseInt(id);
+        price = parseInt(price);
+
+        var popup = document.getElementById("popup");
+        var popupouter = document.createElement("div");
+        var popupouter1 = document.createElement("div");
+        var popupinner = document.createElement("div");
+        var cross = document.createElement("button");
+        popup.innerText = "";
+        popupouter.style.position = "absolute";
+        popupouter.style.top = "10%";
+        popupouter.style.right = "20%";
+        popupouter.style.bottom = "10%";
+
+        cross.className = "btn btn-primary btn-lg";
+        cross.innerText = "update";
+        console.log(popup);
+        cross.addEventListener("click", () => {
+          updateDetails(id, name, desc, price, quantity);
+          document.getElementById("trans").style.opacity = "1";
+          popup.innerHTML = "";
+        });
+        popupinner.innerHTML = `
+                    <div class="card" style="width: 27rem" ">
+                      <img
+                        class="card-img-top img-fluid"
+                        src=${scr}
+                        style="length: 10rem"
+                        alt="Card image cap"
+      s
+                      />
+
+                      <div class="card-body" id="uppop">
+                        <h5 class="card-title "> Name:  <input  class="name"  placeholder="${name}" />  </h5>
+                        <h6 class="card-title "> Description :<input class="desc"  placeholder="${desc}" />  </h6>
+                        <h5 class="card-title "> Price: <input class="price"  placeholder="${price}" />  </h5>
+                        <h5 class="card-title "> Quantity:  <input  class="quantity" placeholder="${quantity}" />  </h5>
+
+
+
+                      </div>
+
+                     </div>`;
+        popupouter1.appendChild(popupinner);
+        popupouter1.appendChild(cross);
+        popupouter1.appendChild(cross);
+        popupouter.appendChild(popupouter1);
+        popup.appendChild(popupouter);
+      }
+    </script>
+  </body>
+</html>

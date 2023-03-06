@@ -1,0 +1,166 @@
+[
+  {
+    "id": 1001,
+    "name": "Samsung Galaxy S22",
+    "description": "The Samsung Galaxy S22 is the latest and greatest from Samsung, featuring a stunning 6.5-inch Super AMOLED display and a powerful Exynos 2200 processor.",
+    "price": 799.99,
+    "currency": "USD",
+    "brand": "Samsung",
+    "category": "Smartphones",
+    "colors": ["Phantom Black", "Phantom Silver", "Phantom Green"],
+    "images": [
+      "https://m.media-amazon.com/images/I/41ZIcSihDEL._SY300_SX300_.jpg",
+      "https://example.com/samsung-galaxy-s22-silver.jpg",
+      "https://example.com/samsung-galaxy-s22-green.jpg"
+    ]
+  },
+  {
+    "id": 1002,
+    "name": "Apple MacBook Pro 16-inch",
+    "description": "The MacBook Pro 16-inch is Apple's most powerful laptop yet, with an 8-core Intel Core i9 processor and a stunning Retina display.",
+    "price": 2399.99,
+    "currency": "USD",
+    "brand": "Apple",
+    "category": "Laptops",
+    "colors": ["Space Gray", "Silver"],
+    "images": [
+      "https://m.media-amazon.com/images/I/31zUXtO55tL._SX342_SY445_.jpg",
+      "https://example.com/macbook-pro-16-silver.jpg"
+    ]
+  },
+  {
+    "id": 1003,
+    "name": "Sony WH-1000XM4 Wireless Headphones",
+    "description": "The Sony WH-1000XM4 headphones offer exceptional noise cancellation and high-quality sound, making them perfect for music lovers and frequent travelers.",
+    "price": 349.99,
+    "currency": "USD",
+    "brand": "Sony",
+    "category": "Headphones",
+    "colors": ["Black", "Silver"],
+    "images": [
+      "https://m.media-amazon.com/images/I/51SKmu2G9FL._SX425_.jpg",
+      "https://example.com/sony-wh-1000xm4-silver.jpg"
+    ]
+  },
+  {
+    "id": 1004,
+    "name": "Canon EOS R6",
+    "description": "The Canon EOS R6 is a powerful mirrorless camera that features a 20.1 megapixel full-frame CMOS sensor and 4K video recording.",
+    "price": 2499.99,
+    "currency": "USD",
+    "brand": "Canon",
+    "category": "Cameras",
+    "colors": ["Black"],
+    "images": [
+      "https://m.media-amazon.com/images/I/41kd5d43VDL._SY300_SX300_.jpg"
+    ]
+  },
+  {
+    "id": 1005,
+    "name": "Dyson V15 Detect Cordless Vacuum",
+    "description": "The Dyson V15 Detect cordless vacuum features powerful suction and advanced laser technology to detect hidden dust and debris in your home.",
+    "price": 699.99,
+    "currency": "USD",
+    "brand": "Dyson",
+    "category": "Vacuums",
+    "colors": ["Nickel/Red"],
+    "images": [
+      "https://m.media-amazon.com/images/I/41VeATesqhL._SY300_SX300_.jpg"
+    ]
+  },{
+    "id": 1006,
+    "name": "Dyson V15 Detect Cordless Vacuum",
+    "description": "The Dyson V15 Detect cordless vacuum features powerful suction and advanced laser technology to detect hidden dust and debris in your home.",
+    "price": 699.99,
+    "currency": "USD",
+    "brand": "Dyson",
+    "category": "Vacuums",
+    "colors": ["Nickel/Red"],
+    "images": [
+      "https://m.media-amazon.com/images/I/41VeATesqhL._SY300_SX300_.jpg"
+    ]
+  } ]
+  [
+      {
+    "id": 7,
+    "name": "Samsung Galaxy S22",
+    "description": "The Samsung Galaxy S22 is the latest and greatest from Samsung, featuring a stunning 6.5-inch Super AMOLED display and a powerful Exynos 2200 processor.",
+    "price": 799.99,
+    "currency": "USD",
+    "brand": "Samsung",
+    "category": "Smartphones",
+    "colors": ["Phantom Black", "Phantom Silver", "Phantom Green"],
+    "images": [
+      "https://m.media-amazon.com/images/I/41ZIcSihDEL._SY300_SX300_.jpg",
+      "https://example.com/samsung-galaxy-s22-silver.jpg",
+      "https://example.com/samsung-galaxy-s22-green.jpg"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Apple MacBook Pro 16-inch",
+    "description": "The MacBook Pro 16-inch is Apple's most powerful laptop yet, with an 8-core Intel Core i9 processor and a stunning Retina display.",
+    "price": 2399.99,
+    "currency": "USD",
+    "brand": "Apple",
+    "category": "Laptops",
+    "colors": ["Space Gray", "Silver"],
+    "images": [
+      "https://m.media-amazon.com/images/I/31zUXtO55tL._SX342_SY445_.jpg",
+      "https://example.com/macbook-pro-16-silver.jpg"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Sony WH-1000XM4 Wireless Headphones",
+    "description": "The Sony WH-1000XM4 headphones offer exceptional noise cancellation and high-quality sound, making them perfect for music lovers and frequent travelers.",
+    "price": 349.99,
+    "currency": "USD",
+    "brand": "Sony",
+    "category": "Headphones",
+    "colors": ["Black", "Silver"],
+    "images": [
+      "https://m.media-amazon.com/images/I/51SKmu2G9FL._SX425_.jpg",
+      "https://example.com/sony-wh-1000xm4-silver.jpg"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Canon EOS R6",
+    "description": "The Canon EOS R6 is a powerful mirrorless camera that features a 20.1 megapixel full-frame CMOS sensor and 4K video recording.",
+    "price": 2499.99,
+    "currency": "USD",
+    "brand": "Canon",
+    "category": "Cameras",
+    "colors": ["Black"],
+    "images": [
+      "https://m.media-amazon.com/images/I/41kd5d43VDL._SY300_SX300_.jpg"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Dyson V15 Detect Cordless Vacuum",
+    "description": "The Dyson V15 Detect cordless vacuum features powerful suction and advanced laser technology to detect hidden dust and debris in your home.",
+    "price": 699.99,
+    "currency": "USD",
+    "brand": "Dyson",
+    "category": "Vacuums",
+    "colors": ["Nickel/Red"],
+    "images": [
+      "https://m.media-amazon.com/images/I/41VeATesqhL._SY300_SX300_.jpg"
+    ]
+  },{
+    "id": 12,
+    "name": "Dyson V15 Detect Cordless Vacuum",
+    "description": "The Dyson V15 Detect cordless vacuum features powerful suction and advanced laser technology to detect hidden dust and debris in your home.",
+    "price": 699.99,
+    "currency": "USD",
+    "brand": "Dyson",
+    "category": "Vacuums",
+    "colors": ["Nickel/Red"],
+    "images": [
+      "https://m.media-amazon.com/images/I/41VeATesqhL._SY300_SX300_.jpg"
+    ]
+  }
+    
+]

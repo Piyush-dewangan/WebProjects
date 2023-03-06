@@ -1,0 +1,25 @@
+<br />
+
+<div class="card" style="width: 18rem" ">
+  <img
+    class="card-img-top img-fluid"
+    src="<%=data.images %>"
+    alt="Card image cap"
+    onclick="popup(`<%=data.id%>`,`<%=data.name%>`,`<%=data.description%>`,`<%=data.price%>`,`<%=data.images%>`)"
+  />
+
+  <div class="card-body">
+    <h5 class="card-title"><%=data.name %></h5>
+    <div id="<%=data.id%>">
+
+      <button class="btn btn-primary plus"   > + </button>
+      <span class="quantity" ><%=quantity %> </span>
+      <button  class="btn btn-primary minus"  > - </button>
+      <span>Quantity left: <%=data.quantity%></span>
+     <br>
+      <a href="/product/deletecart/<%=data.id%>" class="btn btn-primary delete my-1">Delete  </a>
+      <a href="/product/<%=data.id%>" class="btn btn-primary my-1 ">View Details </a>
+    </div>
+   
+  </div>
+</div>
