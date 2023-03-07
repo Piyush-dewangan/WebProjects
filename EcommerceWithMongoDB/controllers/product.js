@@ -151,7 +151,7 @@ const deletecartGet = async (req, res) => {
 const productUpdatePost = async (req, res) => {
   // console.log("ss", req.body);
   let { id } = req.params;
-  console.log(req.body);
+ 
 
   let product = await ProductModal.updateOne(
     { id: id },
@@ -169,13 +169,13 @@ const productUpdatePost = async (req, res) => {
 const productDeletePost = async (req, res) => {
   // console.log("ss", req.body);
   let { id } = req.params;
-  console.log("id to delte", id);
+ 
   let product = await ProductModal.deleteOne({ id: id });
   res.redirect("/admin");
 };
 const addProductPost = async (req, res) => {
   // console.log(req.body);
-  console.log(req.file);
+ 
   // console.log(uuidv1());
   let product = new ProductModal();
   // product;

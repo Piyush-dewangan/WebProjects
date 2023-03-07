@@ -13,7 +13,7 @@ const signupUserPost = async (req, res) => {
   let user = await UserModal.findOne({ username: req.body.username });
 
   let flag = false;
-  console.log(user);
+  
   if (user !== null) {
     let name = null;
     let error = "User name is already taken";
