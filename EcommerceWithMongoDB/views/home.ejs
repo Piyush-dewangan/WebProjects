@@ -65,7 +65,7 @@
 }
 
 </script>
-  <body>
+  <body class="pr-3" >
     <br>
     
     <br>
@@ -80,8 +80,10 @@
 
       <% }}) %>
       <% size=parseInt(size)+5 %>
-      <a href="/fetchAll/<%=size%>">Show more</a>
-    </div>
-    
+      <div class="d-flex align-items-center" >
+
+        <a href="/fetchAll/<%=size%>" class="btn bnt-lg btn-info py-4"  > Show more</a>
+      </div>
+    </div> 
   </body>
 </html>

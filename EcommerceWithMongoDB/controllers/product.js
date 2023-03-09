@@ -151,7 +151,6 @@ const deletecartGet = async (req, res) => {
 const productUpdatePost = async (req, res) => {
   // console.log("ss", req.body);
   let { id } = req.params;
- 
 
   let product = await ProductModal.updateOne(
     { id: id },
@@ -169,14 +168,15 @@ const productUpdatePost = async (req, res) => {
 const productDeletePost = async (req, res) => {
   // console.log("ss", req.body);
   let { id } = req.params;
- 
+
   let product = await ProductModal.deleteOne({ id: id });
   res.redirect("/admin");
 };
 const addProductPost = async (req, res) => {
   // console.log(req.body);
- 
+
   // console.log(uuidv1());
+
   let product = new ProductModal();
   // product;
   product.name = req.body.name;
@@ -186,7 +186,8 @@ const addProductPost = async (req, res) => {
   product.price = req.body.price;
   product.images[0] = req.file.path;
   await product.save();
-  res.send("added sucessfully");
+  res.redirect("/admin");
+  // res.send("added sucessfully");
 };
 module.exports = {
   productGet,

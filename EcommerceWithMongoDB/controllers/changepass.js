@@ -13,7 +13,6 @@ const changePassPost = async (req, res) => {
   let pass2 = req.body.password2;
 
   if (pass1 != pass2) {
-    
     let err = "Both are not same";
     res.render("changepass.ejs", { name, err, isAdmin: false });
     return;
@@ -21,8 +20,9 @@ const changePassPost = async (req, res) => {
 
   let user = await UserModal.findOne({ email: req.session.user.email });
   user.password = pass;
-  user.save();
-  res.send("password changed sucessfully");
+  await user.save();
+  res.redirect("/login");
+  // res.send("password changed sucessfully");
   return;
 };
 

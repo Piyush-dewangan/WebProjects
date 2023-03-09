@@ -76,7 +76,7 @@ app.get("/verifyEmail/:token", async (req, res) => {
 // making a get request for home if no sesssion is present redirect to login page
 app.get("/home", async (req, res) => {
   let products = await ProductModal.find({});
-  console.log(__dirname);
+
   let size = 5;
   let name = null;
   let isAdmin = false;

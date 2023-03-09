@@ -59,7 +59,7 @@
         var popupouter = document.createElement("div");
         var popupouter1 = document.createElement("div");
         var popupinner = document.createElement("div");
-
+        popupinner.id = "popinner";
         popupouter.style.position = "absolute";
         popupouter.style.top = "10%";
         popupouter.style.right = "20%";
@@ -67,17 +67,17 @@
 
         console.log(popup);
         popupinner.innerHTML = `
+        <button class="btn btn-primary" onclick="removeaddproduct()"  >X</button>
                     <div class="card" style="width: 27rem" ">
-                   
  <form method="post" action="/product/addproduct" enctype="multipart/form-data">
                       <div class="card-body" id="uppop">
                        
-                        <h5 class="card-title "> Name:  <input minlength="1" class="name" name="name" placeholder="Product name" />  </h5>
-                        <h6 class="card-title "> Description :<input minlength="1" class="desc"  name="desc"placeholder="product description" />  </h6>
-                        <h5 class="card-title "> Price: <input class="price" name="price"  type="number"placeholder="product price" />  </h5>
+                        <h5 class="card-title "> Name:  <input minlength="1" class="name" name="name" placeholder="Product name" required />  </h5>
+                        <h6 class="card-title "> Description :<input minlength="1" class="desc"  name="desc"placeholder="product description" required />  </h6>
+                        <h5 class="card-title "> Price: <input class="price" name="price"  type="number"placeholder="product price" required/>  </h5>
                         <h5 class="card-title "> Quantity:  <input  class="quantity" type="number"
-                         name="quantity" placeholder="product quantity" />  </h5>
-                        <input type="file" name="file" id="file">
+                         name="quantity" placeholder="product quantity" required />  </h5>
+                        <input type="file" name="file" id="file"  required>
                           <button class="btn btn-primary "  type="submit" > Add Product</button>
                           </form>
 
@@ -85,11 +85,17 @@
                       </div>
 
                      </div>`;
+
         popupouter1.appendChild(popupinner);
         popupouter.appendChild(popupouter1);
         popup.appendChild(popupouter);
       }
-
+      function removeaddproduct() {
+        // console.log(document.getElementById("popinner"));
+        document.getElementById("popup").innerHTML = "";
+        document.getElementById("trans").style.opacity = "1";
+      }
+      function removeproduct() {}
       function updateDetails(id, name1, desc1, price1, quantity1) {
         let thediv = document.getElementById(`uppop`);
         // console.log(thediv);

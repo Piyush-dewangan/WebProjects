@@ -22,6 +22,13 @@ const cartGet = async (req, res) => {
       isAdmin: req.session.user.isAdmin,
     });
   } else {
+    let products = [];
+    res.render("mycart.ejs", {
+      products: products,
+      cart: [],
+      name: req.session.name,
+      isAdmin: req.session.user.isAdmin,
+    });
   }
 };
 

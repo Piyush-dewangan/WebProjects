@@ -1,6 +1,6 @@
 <br />
 
-<div class="card" style="width: 18rem" ">
+<div class="card shadow py-2 px-1" style="width: 18rem" ">
   <img
     class="card-img-top img-fluid"
     src="<%=data.images %>"
@@ -11,7 +11,7 @@
   <div class="card-body">
     <h5 class="card-title"><%=data.name %></h5>
 
-    <a href="/product/<%=data.id%>" class="btn btn-primary">View Details </a>
-    <a href="/product/addcart/<%=data.id%>" class="btn btn-primary">Add to Cart </a>
+    <a href="/product/<%=data.id%>" class="btn btn-info">View Details </a>
+    <a href="/product/addcart/<%=data.id%>" class="btn btn-warning">Add to Cart </a>
   </div>
 </div>

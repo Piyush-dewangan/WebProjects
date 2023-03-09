@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const PlaceorderSchema = new Schema({
+  id: {
+    type: String,
+  },
   username: {
     type: String,
   },
