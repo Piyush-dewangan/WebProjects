@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/eeb8707309.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <title>My Cart</title>
+  </head>
+
+  <body>
+    <%- include('partials/header', {name: name ,isSeller:isSeller}); %>
+    <br />
+    <br />
+    <a
+      href="/placeorder"
+      class="btn btn-primary"
+      style="position: fixed; right: 3rem; bottom: 5rem"
+    >
+      Place Order
+    </a>
+
+    <div class="d-flex flex-row" id="maincon">
+      <% products.forEach((number,index,product)=>{ cart.forEach((value)=>{
+      if(value.id==product[index].id){%>
+      <div class="col-sm-12 col-md-5 col-lg-3">
+        <%-include('partials/mycart',
+        {data:product[index],quantity:value.quantity }); %>
+      </div>
+
+      <% }}) }) %>
+    </div>
+    <script>
+      if (document.getElementById("maincon").innerText.length < 1) {
+        document.getElementById("maincon").innerHTML =
+          " <br><br><br><h1> Oops its seems you haven't added anything 😊</h1>";
+      }
+
+      let minuses = document.querySelectorAll(".minus");
+
+      minuses.forEach((minus) => {
+        minus.addEventListener("click", (event) => {
+          let id = event.target.parentNode.id;
+
+          fetch(`product/minuscart/${id}`, {
+            method: "GET", // or 'PUT'
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              let quantity = document
+                .getElementById(`${id}`)
+                .querySelector("span");
+              quantity.innerText = `${data}`;
+              if (data < 1) {
+                document
+                  .getElementById(`${id}`)
+                  .querySelector(".delete")
+                  .click();
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+      });
+      let pluses = document.querySelectorAll(".plus");
+      pluses.forEach((plus) => {
+        plus.addEventListener("click", (event) => {
+          let id = event.target.parentNode.id;
+          console.log("hit hua", id);
+
+          fetch(`product/addcart/add/${id}`, {
+            method: "GET", // or 'PUT'
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              let quantity = document
+                .getElementById(`${id}`)
+                .querySelector("span");
+              quantity.innerText = `${data}`;
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
