@@ -75,37 +75,43 @@ app.get("/verifyEmail/:token", async (req, res) => {
 
 // making a get request for home if no sesssion is present redirect to login page
 app.get("/home", async (req, res) => {
-  let products = await ProductModal.find({});
-
-  let size = 5;
   let name = null;
   let isAdmin = false;
-
+  let page = 1;
+  let limit = 5;
+  let skip = (page - 1) * limit;
+  let products = await ProductModal.find({}).skip(skip).limit(limit);
   if (req.session.is_logged_in) {
     name = req.session.name;
     isAdmin = req.session.user.isAdmin;
   }
-  res.render("home.ejs", { name, products, size, isAdmin });
+  res.render("home.ejs", { name, products, page, isAdmin });
 });
 app.get("/", isAuth, async (req, res) => {
   let name = req.session.name;
   let isAdmin = req.session.user.isAdmin;
-  let products = await ProductModal.find({});
-  let size = 5;
-  res.render("home.ejs", { name, products, size, isAdmin });
+  let page = 1;
+  let limit = 5;
+  let skip = (page - 1) * limit;
+  let products = await ProductModal.find({}).skip(skip).limit(limit);
+  console.log(products);
+  res.render("home.ejs", { name, products, page, isAdmin });
 });
 
-app.get("/fetchAll/:size", async (req, res) => {
+app.get("/fetchAll/:page", async (req, res) => {
   let name = req.session.name;
-  let products = await ProductModal.find({});
+
+  const page = req.params.page;
+  let limit = 5;
+  let skip = (page - 1) * limit;
+  let products = await ProductModal.find({}).skip(skip).limit(limit);
   let isAdmin = false;
-  const size = req.params.size;
   if (req.session.is_logged_in) {
     name = req.session.name;
     isAdmin = req.session.user.isAdmin;
   }
 
-  res.render("home.ejs", { name, products, size, isAdmin });
+  res.render("home.ejs", { name, products, page, isAdmin });
 });
 
 app.route("/logout").get((req, res) => {

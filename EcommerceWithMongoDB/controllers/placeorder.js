@@ -35,10 +35,10 @@ const placedOrderGet = async (req, res) => {
   // res.send("sucess");
   let placeorder = await PlaceorderModal.find({
     username: req.session.user.username,
-  })
+  });
   // console.log(req.session);
   let product = await ProductModal.find({});
-  console.log(placeorder);
+  // console.log(placeorder);
   res.render("myorders.ejs", {
     name: req.session.user.name,
     product: product,
@@ -46,4 +46,13 @@ const placedOrderGet = async (req, res) => {
     isAdmin: req.session.user.isAdmin,
   });
 };
-module.exports = { placeOrderGet, placedOrderPost, placedOrderGet };
+const placedOrderDelete = async (req, res) => {
+  let { id, name } = req.params;
+  console.log(id, name);
+};
+module.exports = {
+  placeOrderGet,
+  placedOrderPost,
+  placedOrderGet,
+  placedOrderDelete,
+};

@@ -23,11 +23,11 @@ const ProductSchema = new Schema({
   },
   category: {
     type: String,
-    default:"General"
+    default: "General",
   },
   colors: {
     type: Array,
-    default:"black"
+    default: "black",
   },
   images: {
     type: Array,

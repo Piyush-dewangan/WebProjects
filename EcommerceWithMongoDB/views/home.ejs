@@ -17,31 +17,29 @@
     ></script>
 
     <title>Home</title>
-  
-
   </head>
 
-<script>
-  function popup(id, name, desc, price,scr) {
-  id = parseInt(id);
-  price = parseInt(price);
-  console.log(id, price, name, desc);
-    var popup = document.getElementById("popup");
-    var popupouter = document.createElement("div");
-    var popupinner = document.createElement("div");
-    var cross = document.createElement("button");
-    popup.innerText=""
-    popupouter.style.position="absolute"
-    popupouter.style.top="12%"
-    popupouter.style.right="1rem"
-    popupouter.style.bottom="10%"
- cross.className="btn btn-primary"
- cross.innerText="X"
-    console.log(popup)
-    cross.addEventListener("click",()=>{
-      popup.innerHTML=""
-    })
-    popupinner.innerHTML = ` 
+  <script>
+    function popup(id, name, desc, price, scr) {
+      id = parseInt(id);
+      price = parseInt(price);
+      console.log(id, price, name, desc);
+      var popup = document.getElementById("popup");
+      var popupouter = document.createElement("div");
+      var popupinner = document.createElement("div");
+      var cross = document.createElement("button");
+      popup.innerText = "";
+      popupouter.style.position = "absolute";
+      popupouter.style.top = "12%";
+      popupouter.style.right = "1rem";
+      popupouter.style.bottom = "10%";
+      cross.className = "btn btn-primary";
+      cross.innerText = "X";
+      console.log(popup);
+      cross.addEventListener("click", () => {
+        popup.innerHTML = "";
+      });
+      popupinner.innerHTML = ` 
       <div class="card" style="width: 25rem" ">
         <img
           class="card-img-top img-fluid"
@@ -59,31 +57,30 @@
         </div>
           
        </div>`;
-    popupouter.appendChild(cross);
-    popupouter.appendChild(popupinner);
-    popup.appendChild(popupouter);
-}
+      popupouter.appendChild(cross);
+      popupouter.appendChild(popupinner);
+      popup.appendChild(popupouter);
+    }
+  </script>
+  <body class="pr-3">
+    <br />
 
-</script>
-  <body class="pr-3" >
-    <br>
-    
-    <br>
+    <br />
 
     <%- include('partials/header', {name: name ,isAdmin:isAdmin}); %>
-    <div id="popup" style="position:sticky; top:4rem;z-index: 1;" ></div>
-    <div id="loadmore" class="row" style="z-index: 0;" >
-      <% products.forEach((numeber,index,product)=>{ if(index<size&&index<products.length){%>
+    <div id="popup" style="position: sticky; top: 4rem; z-index: 1"></div>
+    <div id="loadmore" class="row" style="z-index: 0">
+      <% products.forEach((numeber,index,product)=>{ %>
       <div class="col-sm-12 col-md-5 col-lg-3">
         <%-include('partials/cart', {data:product[index]}); %>
       </div>
 
-      <% }}) %>
-      <% size=parseInt(size)+5 %>
-      <div class="d-flex align-items-center" >
-
-        <a href="/fetchAll/<%=size%>" class="btn bnt-lg btn-info py-4"  > Show more</a>
+      <% }) %> <% page=parseInt(page)+1 %>
+      <div class="d-flex align-items-center">
+        <a href="/fetchAll/<%=page%>" class="btn bnt-lg btn-info py-4">
+          Show more</a
+        >
       </div>
-    </div> 
+    </div>
   </body>
 </html>
