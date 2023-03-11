@@ -13,9 +13,11 @@ const forgetUserPost = async (req, res) => {
 
   if (user !== null) {
     let mailToken = user.mailToken;
-    forgotPass(email, "User", mailToken, (err, data) => {});
+    forgotPass(email, "User", mailToken, (err, data) => {
+      res.send("Check your Email");
+    });
+  } else {
+    res.send("please enter a valid email id");
   }
-
-  res.send("Check your Email");
 };
 module.exports = { forgetUserGet, forgetUserPost };

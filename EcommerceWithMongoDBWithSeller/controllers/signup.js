@@ -11,12 +11,18 @@ const signupUserGet = (req, res) => {
 };
 const signupUserPost = async (req, res) => {
   let user = await UserModal.findOne({ username: req.body.username });
-
+  let email = await UserModal.findOne({ email: req.body.email });
   let flag = false;
-
+    
   if (user !== null) {
     let name = null;
     let error = "User name is already taken";
+
+    res.render("signup.ejs", { name, error, isSeller: false });
+    return;
+  } else if (email != null) {
+    let name = null;
+    let error = "Email is already taken";
 
     res.render("signup.ejs", { name, error, isSeller: false });
     return;
@@ -38,7 +44,7 @@ const signupUserPost = async (req, res) => {
       (err, data) => {
         if (err) {
           let name = null;
-          let error = "error";
+          let error = "Wrong gmail";
           console.log(error);
           res.render("signup.ejs", { name, error, isSeller: false });
           return;

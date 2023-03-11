@@ -34,7 +34,7 @@
       if(prod.id==item.id){%> 
         <div class="col-sm-3 col-12">
 
-            <div class="card shadow  py-2 px-1" style="width: 18rem" ">
+            <div class="card shadow  py-2 px-1" style="width: 20rem" ">
                 <img
                 class="card-img-top img-fluid"
                 src="<%=prod.images %>"
@@ -49,6 +49,7 @@
                     <h5 class="card-title">Price:-<%=prod.price%></h5>
                     <h5 class="card-title">Total:-<%=item.quantity * prod.price %></h5>
                      <a class="btn btn-lg btn-danger"href="cancel/<%=order._id%>/<%=prod.id%>" >CancelOrder</a >
+                      <a class="btn btn-lg btn-warning mt-2"   href="cancel/<%=order._id%>/<%=prod.id%>" >Confirm Delivery</a >
                 </div>
             </div>
             

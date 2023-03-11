@@ -9,11 +9,12 @@
   />
 
   <div id="<%=data.id%>" class="card-body">
-    <p class="name"><%=data.name %></p>
+    <p class="id">ID:-<%=data.id %></p>
+    <p class="name">Name:-<%=data.name %></p>
     <% let currdata =data.description.toString().substr(0,25) +"..." %>
-    <p class="desc"><%=currdata %></p>
-    <p class="price"><%=data.price %></p>
-    <p class="quantity"><%=data.quantity %></p>
+    <p class="desc">Desc:-<%=currdata %></p>
+    <p class="price">Price:-<%=data.price %></p>
+    <p class="quantity">Quantity:-<%=data.quantity %></p>
  
 
     <button  class="btn btn-info update"  onclick="popup(`<%=data.id%>`,`<%=data.name%>`,`<%=data.description%>`,`<%=data.price%>`,`<%=data.images%>`,`<%=data.quantity%>`)"> Update </button>
